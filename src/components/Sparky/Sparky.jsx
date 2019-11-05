@@ -25,13 +25,15 @@ export default class Sparky extends Component {
         break;
     }
 
-
     return (
       <div className="sparky-container">
         <h5 className="sparky-dialogue">{this.props.dialogue}</h5>
-        <img src={face} className="black-hole" alt="chaos" />
-
-     </div>
+        <img
+          className="sparky-face"
+          src={face}
+          alt="chaos"
+        />
+      </div>
     );
   }
 }

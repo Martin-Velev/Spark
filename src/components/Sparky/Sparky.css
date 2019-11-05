@@ -2,6 +2,7 @@
   width: 100px;
   height: 100px;
   margin-bottom: 200px;
+  width: 30%;
 }
 
 .sparky-dialogue {
@@ -10,4 +11,8 @@
 
 .sparky-list-item {
   cursor: pointer;
+}
+
+.sparky-face {
+  width: 25%;
 }
