@@ -1,9 +1,13 @@
 .sparky-container {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 50px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 200px;
 }
 
 .sparky-dialogue {
-    color: greenyellow;
+  color: greenyellow;
+}
+
+.sparky-list-item {
+  cursor: pointer;
 }

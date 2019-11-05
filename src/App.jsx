@@ -1,25 +1,30 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Sparky from "./components/Sparky/Sparky";
 import Progress from "./components/Progress/Progress";
 import Button from "./components/Button/Button";
+import conversation from "./conversation";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       buttonText: "Create Life",
-      percentage: 0,
-      showProgress: false,
-      interval: null,
+
       stage: "Beginning",
-      loading: false
+
+      percentage: 0,
+      loading: false,
+      interval: null,
+
+      showProgress: false,
+      showButton: true,
+
+      dialogue: null
     };
   }
 
   handleButtonClick = () => {
-
     switch (this.state.stage) {
       case "Beginning":
         if (!this.state.loading) {
@@ -41,7 +46,9 @@ class App extends Component {
       this.setState({
         stage: "Life",
         showProgress: false,
-        loading: false
+        showButton: false,
+        loading: false,
+        dialogue: conversation
       });
     };
     this.startLoop(1000, completionCallback);
@@ -66,7 +73,7 @@ class App extends Component {
         percentage: i
       });
       if (i >= 100) {
-        clearInterval(interval)
+        clearInterval(interval);
         this.setState({ interval: null });
         completionCallback();
         return;
@@ -75,11 +82,41 @@ class App extends Component {
     this.setState({ interval });
   };
 
+  selectDialogueOption = option => {
+    this.setState({
+      dialogue: option
+    });
+  };
+
   render() {
+    const { dialogue } = this.state;
+    const options = dialogue
+      ? dialogue.next.map(option => {
+          return (
+            <li
+              onClick={event => this.selectDialogueOption(option)}
+              className="sparky-list-item"
+              key={option.player}
+            >
+              <h5 className="dialogue-options">{option.player}</h5>
+            </li>
+          );
+        })
+      : null;
+
+    const dialogueTree = dialogue ? (
+      <div className="dialogue-tree-container">
+        <ol>{options}</ol>
+      </div>
+    ) : null;
+
     return (
       <div className="App">
         <header className="App-header">
-          <Sparky stage={this.state.stage} />
+          <Sparky
+            dialogue={dialogue ? dialogue.sparky : null}
+            stage={this.state.stage}
+          />
 
           <br />
           <Progress
@@ -87,9 +124,12 @@ class App extends Component {
             percentage={this.state.percentage}
           />
           <Button
+            show={this.state.showButton}
             onClick={this.handleButtonClick}
             text={this.state.buttonText}
           />
+
+          {dialogueTree}
         </header>
       </div>
     );

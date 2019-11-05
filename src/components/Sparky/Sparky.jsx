@@ -7,7 +7,6 @@ export default class Sparky extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogue: null,
       face: null
     };
   }
@@ -25,11 +24,14 @@ export default class Sparky extends Component {
         face = blackHole;
         break;
     }
+
+
     return (
-      <div class="sparky-container">
-        <h5 class="sparky-dialogue">{this.state.dialogue}</h5>
+      <div className="sparky-container">
+        <h5 className="sparky-dialogue">{this.props.dialogue}</h5>
         <img src={face} className="black-hole" alt="chaos" />
-      </div>
+
+     </div>
     );
   }
 }
