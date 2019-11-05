@@ -3,8 +3,11 @@ import "./Progress.css";
 
 const Progress = props => {
   return props.show ? (
-    <div className="progress-bar">
-      <Filler percentage={props.percentage} />
+    <div>
+      <h5>{props.text}</h5>
+      <div className="progress-bar">
+        <Filler percentage={props.percentage} />
+      </div>
     </div>
   ) : null;
 };

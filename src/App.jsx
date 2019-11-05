@@ -16,8 +16,9 @@ class App extends Component {
       percentage: 0,
       loading: false,
       interval: null,
-
       showProgress: false,
+      loadingText: null,
+
       showButton: true,
 
       dialogue: null
@@ -39,7 +40,8 @@ class App extends Component {
     this.setState({
       buttonText: "Cancel",
       showProgress: true,
-      loading: true
+      loading: true,
+      loadingText: "Creating Life"
     });
     const completionCallback = () => {
       clearInterval(this.state.interval);
@@ -48,7 +50,8 @@ class App extends Component {
         showProgress: false,
         showButton: false,
         loading: false,
-        dialogue: conversation
+        dialogue: conversation,
+        loadingText: null
       });
     };
     this.startLoop(1000, completionCallback);
@@ -120,6 +123,7 @@ class App extends Component {
 
           <br />
           <Progress
+            text={this.state.loadingText}
             show={this.state.showProgress}
             percentage={this.state.percentage}
           />
