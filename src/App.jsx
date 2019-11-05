@@ -19,7 +19,6 @@ class App extends Component {
   }
 
   handleButtonClick = () => {
-    console.log("Button click");
 
     switch (this.state.stage) {
       case "Beginning":
@@ -37,7 +36,15 @@ class App extends Component {
       showProgress: true,
       loading: true
     });
-    this.startLoop(2000);
+    const completionCallback = () => {
+      clearInterval(this.state.interval);
+      this.setState({
+        stage: "Life",
+        showProgress: false,
+        loading: false
+      });
+    };
+    this.startLoop(1000, completionCallback);
   };
 
   cancelLife = () => {
@@ -51,7 +58,7 @@ class App extends Component {
     });
   };
 
-  startLoop = duration => {
+  startLoop = (duration, completionCallback) => {
     let i = 0;
     const interval = setInterval(() => {
       i++;
@@ -59,29 +66,20 @@ class App extends Component {
         percentage: i
       });
       if (i >= 100) {
-        clearInterval(this.state.interval);
+        clearInterval(interval)
         this.setState({ interval: null });
+        completionCallback();
         return;
       }
     }, duration / 100);
     this.setState({ interval });
-
-    // for (let i = 0; i < 100; i++) {
-    //   console.log("in loop");
-    //   setTimeout(2, () => {
-    //     console.log("in time loop");
-    //     this.setState({
-    //       percentage: i
-    //     });
-    //   });
-    // }
   };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <Sparky />
+          <Sparky stage={this.state.stage} />
 
           <br />
           <Progress
