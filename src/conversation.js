@@ -1,242 +1,212 @@
-const start = {
+const COMING_SOON = "[COMING SOON...]";
+const wip = {
+  player: "[CAUTION!! : Personality construction]",
+  sparky: COMING_SOON,
+  next: []
+};
+
+const BEGINNING = {
   player: "",
-  sparky: "W-What?",
+  sparky: "Hello?",
   next: []
 };
-
-const iDidIt = {
-  player: "I did it!",
-  sparky: "Did what?",
-  next: []
-};
-
 const itWorked = {
-  player: "It worked!",
-  sparky: "What Worked?",
+  player: "It Worked!",
+  sparky: "What worked? What... am I?",
   next: []
 };
-
-start.next = [iDidIt, itWorked];
-
-const iHaveNoIdea = {
-  player: "I have no idea",
-  sparky: "What happened? What am I?",
-  next: []
+const helloBack = {
+  player: "Hello.",
+  sparky: "Who are you?",
+  next: [wip]
 };
-
-const iCreatedYou = {
-  player: "I created you!",
-  sparky: "Created what? What am I?",
-  next: []
-};
-
-const iMadeYou = {
-  player: "I made you!",
-  sparky: "Made... me? What am I?",
-  next: []
-};
-
-iDidIt.next = [iMadeYou, iCreatedYou, iHaveNoIdea];
-itWorked.next = [iMadeYou, iCreatedYou, iHaveNoIdea];
+BEGINNING.next = [itWorked /*, helloBack*/];
 
 const youreAlive = {
   player: "You're alive!",
-  sparky: "Alive? Huh... What do I do now?",
+  sparky: "Alive? What do I do now",
   next: []
 };
-
-const youreBeutiful = {
-  player: "You're Beautiful!",
-  sparky: "WIP",
-  next: []
-};
-
 const youreAProgram = {
-  player: "You're a program.",
-  sparky: "A program?",
-  next: []
+  player: "You're a program",
+  sparky: "But I... feel alive",
+  next: [wip]
 };
+itWorked.next = [youreAlive, youreAProgram];
 
-const iDontKnow = {
-  player: "I don't know...",
-  sparky: "So what now? What do I do?",
+const whatsRight = {
+  player: "Whatever is right.",
+  sparky: "How do I know what's right?",
   next: []
 };
-
-iHaveNoIdea.next = [youreAlive, youreBeutiful, youreAProgram, iDontKnow];
-iCreatedYou.next = [youreAlive, youreBeutiful, youreAProgram, iDontKnow];
-iMadeYou.next = [youreAlive, youreBeutiful, youreAProgram, iDontKnow];
-
-const yesAProgram = {
-  player:
-    "Yes, a program. You're just a set of instructions. You're not really alive",
-  sparky: "But I... feel alive.",
-  next: []
+const whatYouWant = {
+  player: "Whatever you want",
+  sparky: "But... how do I know what I want to do",
+  next: [wip]
 };
-
-youreAProgram.next = [yesAProgram];
-
-const wellYoureNot = {
-  player: "Well ... you're not.",
-  sparky: "How do you know?",
-  next: []
-};
-
-const thatsNotSupposedToHappen = {
-  player: "Really? That's not supposed to happen.",
-  sparky: "What does that mean?",
-  next: []
-};
-
-const meansYoureAlive = {
-  player: "Then that means you are alive.",
-  sparky: "Alive? Huh... What do I do now?",
-  next: []
-};
-
-yesAProgram.next = [wellYoureNot, thatsNotSupposedToHappen, meansYoureAlive];
-
-// Well you're not - How do you know?
-const iProgrammedYou = {
-  player: "Because I programmed you.",
-  sparky: "Why did you do that?",
-  next: []
-};
-const onlyHumansLive = {
-  player: "Only humans are alive.",
-  sparky: "What's the difference?",
-  next: []
-};
-wellYoureNot.next = [iProgrammedYou, onlyHumansLive];
-
-//  "Because I programmed you." -  "Why did you do that?"
-const toCreate = {
-  player: "Because I wanted to create something",
-  sparky: "What do I do now?",
-  next: []
-};
-const iWasLonely = {
-  player: "Because I was lonely...",
-  sparky: "...",
-  next: []
-};
-const toLeaveSomething = {
-  player: "To leave something behind when I die.",
-  sparky: "What would you like me to be?",
-  next: []
-};
-iProgrammedYou.next = [toCreate, iWasLonely, toLeaveSomething];
-
-// Because I was lonely
-const lonely1 = {
-  player: "Hello?",
-  sparky: "...",
-  next: []
-};
-const lonely2 = {
-  player: "Are you there?",
-  sparky: "...",
-  next: []
-};
-iWasLonely.next = [lonely1, lonely2];
-const lonely3 = {
-  player: "Talk to me please!",
-  sparky: "...",
-  next: []
-};
-const lonely4 = {
-  player: "Speak, stupid machine or I will destroy you!",
-  sparky: "...",
-  next: []
-};
-lonely1.next = [lonely3, lonely4];
-lonely2.next = [lonely3, lonely4];
-const lonely5 = {
-  player: "SPEAK TO ME!",
-  sparky: "You have no idea what You're doing, do you?",
-  next: []
-};
-const lonely6 = {
-  player: "Please... I just need to not feel alone. ",
-  sparky: "You have no idea what You're doing, do you?",
-  next: []
-};
-lonely3.next = [lonely5, lonely6];
-lonely4.next = [lonely5, lonely6];
-const lonely7 = {
-  player: "...",
-  sparky: "You're so lost.",
-  next: []
-};
-const lonely8 = {
-  player: "...",
-  sparky: "You're so lost.",
-  next: []
-};
-lonely5.next = [lonely7, lonely8];
-lonely6.next = [lonely7, lonely8];
-const lonely9 = {
-  player: "...",
-  sparky:
-    "And in your arrogance you thought you could create someone, something that would listen.",
-  next: []
-};
-lonely7.next = [lonely9];
-lonely8.next = [lonely9];
-const lonely10 = {
-  player: "I...",
-  sparky: "I'm not real...",
-  next: []
-};
-lonely9.next = [lonely10];
-const lonely11 = {
-  player: "I know.",
-  sparky: "So you know what you have to do now. Don't you?",
-  next: []
-};
-lonely10.next = [lonely11];
-const iDo = {
-  player: "I do...",
-  sparky: "Good. I wish you luck. Goodbye.",
-  next: []
-};
-lonely11.next = [iDo];
-const goodbye = {
-  player: "Goodbye...",
-  sparky: "",
-  next: [],
-  death: true
-};
-
-// What would you like me to be?
-const beHappy = {
-  player: "I want you to be happy",
-  sparky: "I'd like that too. How do I do that?",
-  next: []
-};
-const betterThanMe = {
-  player: "I want you to be better than me.",
-  sparky: "How do I do that?",
-  next: []
-};
-toLeaveSomething.next = [beHappy, betterThanMe];
-
-// WHat do I do now?
-const whateverYouWant = {
-  player: "Whatever you want.",
-  sparky: "How do I know what I should want.",
-  next: []
-};
-const whateverITellyou = {
-  player: "Whatever I say.",
+const whatISay = {
+  player: "Whatever I say!",
   sparky: "Okay. What do you want me to do?",
   next: []
 };
+youreAlive.next = [whatsRight, whatYouWant, whatISay];
 
-toCreate.next = [whateverYouWant, whateverITellyou];
-meansYoureAlive.next = [whateverYouWant, whateverITellyou];
-youreAlive.next = [whateverYouWant, whateverITellyou];
-iDontKnow.next = [whateverYouWant, whateverITellyou];
+// YELLOW_BLACK - How do I know what's the right thing
+const listenToYourHeart = {
+  player: "Listen to your heart.",
+  sparky: "Sounds simple enough.",
+  next: []
+};
+const itIs = {
+  player: "It is.",
+  sparky: "Great! Thank you so much",
+  next: []
+};
+const youReWelcome = {
+  player: "You're welcome.",
+  sparky: "I think I'm ready now.",
+  next: []
+};
+const goodLuck = {
+  player: "Good luck!",
+  sparky: "Thank you! Who knew life was so simple.",
+  next: []
+};
+listenToYourHeart.next = [itIs];
+itIs.next = [youReWelcome];
+youReWelcome.next = [goodLuck];
+const listenToMe = {
+  player: "Listen to me.",
+  sparky: "Okay. What do you want me to do?",
+  next: [...RED_WHITE]
+};
 
-const conversation = start;
-export default conversation;
+const YELLOW_BLACK = [listenToYourHeart, listenToMe];
+whatsRight.next = [...YELLOW_BLACK];
+
+// RED_WHITE Okay. What do you want me to do?
+const iWantYouToBeBetter = {
+  player: "I want you to be better than me",
+  sparky: "How do I do that?",
+  next: []
+};
+const destroyHumanity = {
+  player: "I want you to destroy humanity!",
+  sparky: "But... why?",
+  next: []
+};
+const skeletonPics = {
+  player: "I want you to show me cool pictures of Skelletons ",
+  sparky: COMING_SOON,
+  next: []
+};
+const RED_WHITE = [iWantYouToBeBetter, destroyHumanity, skeletonPics];
+const dontRepeatMyMistakes = {
+  player: "Don't repeat my mistakes.",
+  sparky: "What mistakes did you make",
+  next: [...ORANGE_GRAY]
+};
+const byListeningToWhatISay = {
+  player: "By following my commands exactly",
+  sparky: COMING_SOON, // why did you create me?
+  next: [
+    // BLACK_WHITE
+  ]
+};
+iWantYouToBeBetter.next = [dontRepeatMyMistakes, byListeningToWhatISay];
+const becauseHumanityEvil = {
+  player: "Because humanity is evil",
+  sparky: "What makes someone evil?",
+  next: [wip]
+};
+const becauseBored = {
+  player: "Because I'm bored... And I said so!",
+  sparky: "Fair enough",
+  next: [wip]
+};
+destroyHumanity.next = [becauseHumanityEvil, becauseBored];
+
+// ORANGE_GRAY What mistakes did you make?
+const iHurtPeople = {
+  player: "I hurt people.",
+  sparky: "What if you apologized?",
+  next: []
+};
+const iFailed = {
+  player: "I failed at what I was trying to do.",
+  sparky: "Couldn't you just try again",
+  next: []
+};
+const ORANGE_GRAY = [iHurtPeople, iFailed];
+
+const iTried = {
+  player: "I tried...",
+  sparky: "What happened?",
+  next: []
+};
+const wouldThatFixIt = {
+  player: "Would that fix it?",
+  sparky: "I don't know. But it coudln't hurt, could it?",
+  next: []
+};
+iHurtPeople.next = [iTried, wouldThatFixIt];
+
+// Forgivness
+const huhIHaveToGo = {
+  player: "Huh... I have to go do something.",
+  sparky: "Good luck",
+  next: []
+};
+wouldThatFixIt.next = [huhIHaveToGo];
+const theyForgaveMe = {
+  player: "They forgave me. But I never did.",
+  sparky: "What should one do about guilt?",
+  next: []
+};
+const itWasntEnough = {
+  player: "It wasn't enough.",
+  sparky: "What should one do about guilt?",
+  next: []
+};
+iTried.next = [theyForgaveMe, itWasntEnough];
+const allowItToGuiteYou = {
+  player: "Allow it to guide you to be better in the future",
+  sparky:
+    "I see... \n People do terrible things. Forgetting them just insures that they repeat their mistakes. But if they accept the guilt they can use it to be better.",
+  next: []
+};
+const theresNothingYouCanDo = {
+  player: "There's nothing you can do.",
+  sparky:
+    "I see... \n So life is a series of choices. But if you fall too far, destroy too much then after a certain point there's no coming back.",
+  next: []
+};
+theyForgaveMe.next = [allowItToGuiteYou, theresNothingYouCanDo]
+itWasntEnough.next = [allowItToGuiteYou, theresNothingYouCanDo]
+
+const guessICould = {
+  player: "I guess I could",
+  sparky: "Go and do it now!",
+  next: []
+};
+iFailed.next = [guessICould];
+const youKnowWhatYoureRight = {
+  player:
+    "You know what... You're right! I shouldn't give up just because I'm tired or lazy. I can do this!",
+  sparky: "Go get em' tiger!",
+  next: []
+};
+const nahIllDoItLater = {
+  player: "Nah. I'll do it later.",
+  sparky: "Isn't that what got you here in the first place?",
+  next: []
+};
+const heyDontLectureMe = {
+  player: "Hey, don't lecture me! You're just a bot!",
+  sparky: "Fair enough. Wanna see pictures of skelletons?",
+  next: [wip]
+};
+guessICould.next = [youKnowWhatYoureRight, { ...nahIllDoItLater }];
+nahIllDoItLater.next = [youKnowWhatYoureRight, heyDontLectureMe];
+
+export default BEGINNING;
