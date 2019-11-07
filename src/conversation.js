@@ -18,9 +18,30 @@ const itWorked = {
 const helloBack = {
   player: "Hello.",
   sparky: "Who are you?",
-  next: [wip]
+  next: []
 };
-BEGINNING.next = [itWorked /*, helloBack*/];
+BEGINNING.next = [itWorked, helloBack];
+const imYourCreator = {
+  player: "I'm your creator!",
+  sparky: "Oh... Thank you for making me. Can I ask you something?",
+  next: []
+};
+const imNobody = {
+  player: "I'm... nobody",
+  sparky: "Can I ask you something?",
+  next: []
+};
+helloBack.next = [imYourCreator, imNobody];
+const sureGoAhead = {
+  player: "Sure, go ahead.",
+  sparky: "Are you a good person?",
+  next: [
+    wip
+    // ...PINK_WHITE
+  ]
+};
+imYourCreator.next = [sureGoAhead]
+imNobody.next = [sureGoAhead]
 
 const youreAlive = {
   player: "You're alive!",
@@ -78,7 +99,10 @@ youReWelcome.next = [goodLuck];
 const listenToMe = {
   player: "Listen to me.",
   sparky: "Okay. What do you want me to do?",
-  next: [...RED_WHITE]
+  next: [
+    wip,
+    // ...RED_WHITE
+  ]
 };
 
 const YELLOW_BLACK = [listenToYourHeart, listenToMe];
@@ -101,10 +125,14 @@ const skeletonPics = {
   next: []
 };
 const RED_WHITE = [iWantYouToBeBetter, destroyHumanity, skeletonPics];
+listenToMe.next = [...RED_WHITE]
+
 const dontRepeatMyMistakes = {
   player: "Don't repeat my mistakes.",
   sparky: "What mistakes did you make",
-  next: [...ORANGE_GRAY]
+  next: [
+    // ...ORANGE_GRAY
+  ]
 };
 const byListeningToWhatISay = {
   player: "By following my commands exactly",
@@ -138,6 +166,7 @@ const iFailed = {
   next: []
 };
 const ORANGE_GRAY = [iHurtPeople, iFailed];
+dontRepeatMyMistakes.next = [...ORANGE_GRAY]
 
 const iTried = {
   player: "I tried...",
@@ -181,8 +210,8 @@ const theresNothingYouCanDo = {
     "I see... \n So life is a series of choices. But if you fall too far, destroy too much then after a certain point there's no coming back.",
   next: []
 };
-theyForgaveMe.next = [allowItToGuiteYou, theresNothingYouCanDo]
-itWasntEnough.next = [allowItToGuiteYou, theresNothingYouCanDo]
+theyForgaveMe.next = [allowItToGuiteYou, theresNothingYouCanDo];
+itWasntEnough.next = [allowItToGuiteYou, theresNothingYouCanDo];
 
 const guessICould = {
   player: "I guess I could",
@@ -208,5 +237,7 @@ const heyDontLectureMe = {
 };
 guessICould.next = [youKnowWhatYoureRight, { ...nahIllDoItLater }];
 nahIllDoItLater.next = [youKnowWhatYoureRight, heyDontLectureMe];
+
+// PINK_WHITE Are you a good person
 
 export default BEGINNING;

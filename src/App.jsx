@@ -33,6 +33,9 @@ class App extends Component {
         } else {
           this.cancelLife();
         }
+        break;
+      default:
+      // DO nothingk
     }
   };
 
