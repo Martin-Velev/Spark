@@ -4,6 +4,7 @@ import Sparky from "./components/Sparky/Sparky";
 import Progress from "./components/Progress/Progress";
 import Button from "./components/Button/Button";
 import conversation from "./conversation";
+import { getAllRecords } from "./database/neo4j";
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +24,18 @@ class App extends Component {
 
       dialogue: null
     };
+  }
+
+  componentWillMount() {
+    getAllRecords()
+      .then(function(result) {
+        result.records.forEach(record => {
+          console.log(record.get("result"));
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   handleButtonClick = () => {
