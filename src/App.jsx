@@ -28,15 +28,6 @@ class App extends Component {
 
   componentWillMount() {
     api
-      .getAllRecords()
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    api
       .getFirstNode()
       .then(result => {
         console.log(result);
@@ -44,7 +35,29 @@ class App extends Component {
       .catch(error => {
         console.log(error);
       });
+
+    this.testFnc();
   }
+
+  testFnc = () => {
+    api
+      .getResponses(0)
+      .then(result => {
+        console.log("responses", result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    api
+      .getAllRecords()
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   handleButtonClick = () => {
     switch (this.state.stage) {

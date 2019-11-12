@@ -29,6 +29,21 @@ export async function getFirstNode() {
   return result;
 }
 
+export async function getResponses(id) {
+  const query = `
+    MATCH (n)
+    WHERE ID(n) = 0
+    MATCH (responses)-[:RSP]->(n)
+    WHERE NOT (responses)-[:RSP]->(responses)
+    RETURN responses
+  `;
+
+  let result = await session.run(query);
+  result = result.records.map(rsp => formatResponse(rsp));
+  session.close();
+  return result;
+}
+
 function formatResponse(rsp) {
   const data = { ...rsp._fields[0].properties };
   return {
