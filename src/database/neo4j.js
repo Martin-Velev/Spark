@@ -15,7 +15,26 @@ var session = driver.session();
 
 export async function getAllRecords() {
   const query = "MATCH (n) RETURN n AS result";
-  const result = await session.run(query);
+  let result = await session.run(query);
+  result = result.records.map(rsp => formatResponse(rsp));
   session.close();
   return result;
+}
+
+export async function getFirstNode() {
+  const query = 'MATCH (s) WHERE s.label="hello" \n RETURN s';
+  let result = await session.run(query);
+  result = result.records.map(rsp => formatResponse(rsp));
+  session.close();
+  return result;
+}
+
+function formatResponse(rsp) {
+  const data = { ...rsp._fields[0].properties };
+  return {
+    id: rsp._fields[0].identity.low,
+    p: data.p,
+    s: data.s,
+    label: data.label
+  };
 }

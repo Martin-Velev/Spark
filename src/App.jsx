@@ -4,7 +4,7 @@ import Sparky from "./components/Sparky/Sparky";
 import Progress from "./components/Progress/Progress";
 import Button from "./components/Button/Button";
 import conversation from "./conversation";
-import { getAllRecords } from "./database/neo4j";
+import * as api from "./database/neo4j";
 
 class App extends Component {
   constructor(props) {
@@ -27,13 +27,21 @@ class App extends Component {
   }
 
   componentWillMount() {
-    getAllRecords()
-      .then(function(result) {
-        result.records.forEach(record => {
-          console.log(record.get("result"));
-        });
+    api
+      .getAllRecords()
+      .then(result => {
+        console.log(result);
       })
-      .catch(function(error) {
+      .catch(error => {
+        console.log(error);
+      });
+
+    api
+      .getFirstNode()
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
         console.log(error);
       });
   }
@@ -48,7 +56,7 @@ class App extends Component {
         }
         break;
       default:
-      // DO nothingk
+      // DO nothing
     }
   };
 
