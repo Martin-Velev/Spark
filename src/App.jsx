@@ -3,7 +3,6 @@ import "./App.css";
 import Sparky from "./components/Sparky/Sparky";
 import Progress from "./components/Progress/Progress";
 import Button from "./components/Button/Button";
-import conversation from "./conversation";
 import * as api from "./database/neo4j";
 
 class App extends Component {
@@ -27,37 +26,10 @@ class App extends Component {
   }
 
   componentWillMount() {
-    api
-      .getFirstNode()
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    this.testFnc();
+    // this.testFnc();
   }
 
-  testFnc = () => {
-    api
-      .getResponses(0)
-      .then(result => {
-        console.log("responses", result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    api
-      .getAllRecords()
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  testFnc = () => {};
 
   handleButtonClick = () => {
     switch (this.state.stage) {
@@ -82,14 +54,21 @@ class App extends Component {
     });
     const completionCallback = () => {
       clearInterval(this.state.interval);
-      this.setState({
-        stage: "Life",
-        showProgress: false,
-        showButton: false,
-        loading: false,
-        dialogue: conversation,
-        loadingText: null
-      });
+      api
+        .fetchFirstNode()
+        .then(result => {
+          this.setState({
+            stage: "Life",
+            showProgress: false,
+            showButton: false,
+            loading: false,
+            dialogue: result,
+            loadingText: null
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     };
     this.startLoop(1000, completionCallback);
   };
@@ -123,6 +102,12 @@ class App extends Component {
   };
 
   selectDialogueOption = option => {
+    api.fetchNodeByID(option.id).then(result => {
+      this.setState({
+        dialogue: result
+      });
+    });
+
     this.setState({
       dialogue: option
     });
@@ -130,7 +115,7 @@ class App extends Component {
 
   render() {
     const { dialogue } = this.state;
-    const options = dialogue
+    const options = dialogue && dialogue.next
       ? dialogue.next.map(option => {
           return (
             <li

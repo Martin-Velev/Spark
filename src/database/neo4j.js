@@ -13,7 +13,7 @@ var driver = neo4j.driver(
 // Note: Always make sure to close sessions when you are done using them!
 var session = driver.session();
 
-export async function getAllRecords() {
+export async function fetchAllRecords() {
   const query = "MATCH (n) RETURN n AS result";
   let result = await session.run(query);
   result = result.records.map(rsp => formatResponse(rsp));
@@ -21,18 +21,38 @@ export async function getAllRecords() {
   return result;
 }
 
-export async function getFirstNode() {
-  const query = 'MATCH (s) WHERE s.label="hello" \n RETURN s';
+export async function fetchFirstNode() {
+  return this.fetchNodeByLabel("hello");
+}
+
+export async function fetchNodeByID(id) {
+  const query = `
+    MATCH (n) WHERE ID(n) = ${id}
+    RETURN n
+  `;
   let result = await session.run(query);
-  result = result.records.map(rsp => formatResponse(rsp));
+  result = formatResponse(result.records[0]);
+  result.next = await fetchResponses(result.id);
   session.close();
   return result;
 }
 
-export async function getResponses(id) {
+export async function fetchNodeByLabel(label) {
+  const query = `
+    MATCH (n) WHERE n.label="${label}" 
+    RETURN n
+  `;
+  let result = await session.run(query);
+  result = formatResponse(result.records[0]);
+  result.next = await fetchResponses(result.id);
+  session.close();
+  return result;
+}
+
+export async function fetchResponses(id) {
   const query = `
     MATCH (n)
-    WHERE ID(n) = 0
+    WHERE ID(n) = ${id}
     MATCH (responses)-[:RSP]->(n)
     WHERE NOT (responses)-[:RSP]->(responses)
     RETURN responses
@@ -46,10 +66,11 @@ export async function getResponses(id) {
 
 function formatResponse(rsp) {
   const data = { ...rsp._fields[0].properties };
+  const id = rsp._fields[0].identity.low;
   return {
-    id: rsp._fields[0].identity.low,
-    p: data.p,
-    s: data.s,
+    id,
+    player: data.p,
+    sparky: data.s,
     label: data.label
   };
 }
